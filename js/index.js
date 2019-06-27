@@ -75,3 +75,19 @@ const addLocations = (locations) => {
 }
 
 addLocations(locations);
+
+// general fetch function to receive data based on location, pass a cb to process data
+const fetchTests = (abbreviation, cb) => {
+  fetch(`https://dashboard.privateprep.com/feeds/practice_tests?locations=${
+    abbreviation
+    }`).then(response => response.json()).then(data => cb(data))
+}
+
+// step #1: Fetch data from location and print it out in the console
+let locSelect = document.getElementById('locSelect');
+locSelect.onchange = () => {
+  let location = locSelect.value;
+  console.log('abbreviated location selection: ', location);
+  // passes cb to console.log returned data
+  fetchTests(location, (data) => console.log(data));
+}
