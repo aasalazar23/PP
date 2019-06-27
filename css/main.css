@@ -37,4 +37,8 @@ select {
   text-justify: center;
 }
 
+th, td {
+  padding: 2vh;
+}
+
 /*# sourceMappingURL=main.css.map */

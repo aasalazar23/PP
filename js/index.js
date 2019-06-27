@@ -89,5 +89,59 @@ locSelect.onchange = () => {
   let location = locSelect.value;
   console.log('abbreviated location selection: ', location);
   // passes cb to console.log returned data
-  fetchTests(location, (data) => console.log(data));
+  fetchTests(location, (data) => {
+    console.log(data);
+    fillTable(data);
+  })
 }
+
+
+// step #2: Fill Table, fills once location selected
+
+let tableBody = document.getElementById('tableContent');
+
+  // creates table row with test data
+  let createRow = (test) => {
+    let testEntry = document.createElement('tr');
+    let testType = document.createElement('td');
+    let testCenter = document.createElement('td');
+    let startTime = document.createElement('td');
+    let accommodations = document.createElement('td');
+  
+    testType.append(test.test_type);
+    testCenter.append(test.test_center);
+    startTime.append(test.starts_at);
+
+    //formats accomodation data into a list
+    let accomFormat = (accom) => {
+      let accomList = document.createElement('ul');
+      for (let val of accom) {
+        let item = document.createElement('li');
+        let text = document.createTextNode(`${val.name}`);
+        item.appendChild(text);
+        accomList.append(item);
+      }
+    return accomList;
+    }
+    let accoms = accomFormat(test.accommodations);
+    accommodations.append(accoms);
+  
+    testEntry.append(testType);
+    testEntry.append(testCenter);
+    testEntry.append(startTime);
+    testEntry.append(accommodations);
+
+    return testEntry;
+    }
+
+  // fills table with data
+let fillTable = (data) => {
+  // accesses practice_test in data object
+  //TODO: clear table after each search 
+  let practiceList = data.practice_tests;
+  for (let test of practiceList) {
+    let row = createRow(test);
+    tableBody.append(row);
+  }
+}
+
