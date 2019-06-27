@@ -1,0 +1,45 @@
+// sass css/main.scss css/main.css
+
+$main-color: rgb(255, 253, 246);	/* Main Primary color */
+$hover-color: rgb(235, 205, 175);
+$c2: #405768;
+$c3: #193141;
+$c4: #0C202F;
+$background-color: rgb(253, 253, 253);
+$font-stack: Palatino Linotype, Book Antiqua, Palatino, serif;
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+  }
+  img {
+    width: 100%;
+  }
+  
+  h1, h2, h3, p {
+      color: black;
+      font-family: $font-stack;
+      text-align: center;
+      }
+  a {
+    text-decoration: none;
+  }
+
+  body {
+    background-color: $background-color;
+    grid-area: body;
+  }
+
+  main {
+      background-color: $main-color;
+  }
+
+  select {
+      background-color: $main-color;
+      border: 6px solid transparent;
+      border-color: $main-color transparent transparent transparent;
+      width: 100vw;
+      height: 5vh;
+      font-size: 1.5em;
+      text-justify: center;
+  }

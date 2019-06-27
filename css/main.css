@@ -1,0 +1,40 @@
+/* Main Primary color */
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, p {
+  color: black;
+  font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: #fdfdfd;
+  grid-area: body;
+}
+
+main {
+  background-color: #fffdf6;
+}
+
+select {
+  background-color: #fffdf6;
+  border: 6px solid transparent;
+  border-color: #fffdf6 transparent transparent transparent;
+  width: 100vw;
+  height: 5vh;
+  font-size: 1.5em;
+  text-justify: center;
+}
+
+/*# sourceMappingURL=main.css.map */
