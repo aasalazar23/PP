@@ -17,16 +17,19 @@
       <h2>Select Location</h2>
       <select name="locations" id="locSelect"></select>
     </section>
-    <main>
-        <h2>Test Schedule</h2>
-        <h3 id="locSchedule"></h3>
-        <select id="testTypes">
-
-        </select>
+    <section id="sort">
+        <div id="testTypes">
+            <p>Sort by Test</p>
+  
+        </div>
         <h3 id="availTests"></h3>
         <div id="sorting">
           <button id="scheduleSort" onclick="sortSchedule()">Sort by Schedule</button>
         </div>
+    </section>
+    <main>
+        <h2>Test Schedule</h2>
+        <h3 id="locSchedule"></h3>
         <section id="availTests">
             <table class="table" id="testTable">
               <thead>

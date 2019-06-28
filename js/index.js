@@ -92,6 +92,7 @@ locSelect.onchange = () => {
   fetchTests(location, (data) => {
     console.log(data);
     fillTable(data.practice_tests);
+    createTypes(data.test_types);
   })
 }
 
@@ -157,11 +158,11 @@ let removeTable = () => {
   tableBody.parentNode.removeChild(tableBody);
 }
 
-// step 3: Sort by ScheduledAt
+// step #3: Sort by ScheduledAt
 let sortSchedule = () => {
   let location = document.getElementById('locSelect').value;
   fetchTests(location, (data) => {
-    let testArray = data.practice_tests;;
+    let testArray = data.practice_tests;
     let sortedArray = testArray.sort((a, b) => {
       if (a.starts_at > b.starts_at) {
         return 1
@@ -172,4 +173,50 @@ let sortSchedule = () => {
     console.log(sortedArray);
     fillTable(sortedArray);
 });
+}
+
+// step #4: Adding testType filter
+
+    // passes test types to createRadio function
+let createTypes = (types) => {
+  let typesDiv = document.getElementById('testTypes');
+  for (let type of types) {
+    //TODO: radio buttons stay checked
+    createRadio(type.test_type);
+  }
+}
+
+    // creates radio element html
+let createRadio = (type) => {
+  let testTypes = document.getElementById('testTypes');
+  let r = document.createElement('input');
+  r.setAttribute('type', 'radio');
+  r.value = type;
+  r.name = type;
+  let l = document.createElement('label');
+  l.setAttribute('for', type);
+  l.innerHTML = type;
+  let br = document.createElement('br');
+
+  r.setAttribute('onclick', `sortByTest('${r.value}')`);
+
+  testTypes.append(r);
+  testTypes.append(l);
+  testTypes.append(br);
+
+}
+
+    // sorts based on selected test type
+let sortByTest = (type) => {
+  let location = document.getElementById('locSelect').value;
+  fetchTests(location, (data) => {
+    let results = [];
+    let testArray = data.practice_tests;
+    for (let test of testArray) {
+      if (test.test_type === type) {
+        results.push(test);
+      } 
+    }
+    fillTable(results);
+  });
 }
