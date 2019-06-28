@@ -91,7 +91,7 @@ locSelect.onchange = () => {
   // passes cb to console.log returned data
   fetchTests(location, (data) => {
     console.log(data);
-    fillTable(data);
+    fillTable(data.practice_tests);
   })
 }
 
@@ -144,7 +144,7 @@ let fillTable = (data) => {
   tableBody.setAttribute('id', 'tableContent');
   testTable.append(tableBody);
   // accesses practice_test in data object, add rows
-  let practiceList = data.practice_tests;
+  let practiceList = data;
   for (let test of practiceList) {
     let row = createRow(test);
     tableBody.append(row);
@@ -155,4 +155,21 @@ let fillTable = (data) => {
 let removeTable = () => {
   let tableBody = document.getElementById('tableContent');
   tableBody.parentNode.removeChild(tableBody);
+}
+
+// step 3: Sort by ScheduledAt
+let sortSchedule = () => {
+  let location = document.getElementById('locSelect').value;
+  fetchTests(location, (data) => {
+    let testArray = data.practice_tests;;
+    let sortedArray = testArray.sort((a, b) => {
+      if (a.starts_at > b.starts_at) {
+        return 1
+      } else {
+        return -1
+      }
+    });
+    console.log(sortedArray);
+    fillTable(sortedArray);
+});
 }

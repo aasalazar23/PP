@@ -32,7 +32,6 @@ select {
   border: 6px solid transparent;
   border-color: #fffdf6 transparent transparent transparent;
   width: 100vw;
-  height: 5vh;
   font-size: 1.5em;
   text-justify: center;
 }
