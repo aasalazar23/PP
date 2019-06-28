@@ -145,6 +145,10 @@ let fillTable = (data) => {
   let tableBody = document.createElement('tbody');
   tableBody.setAttribute('id', 'tableContent');
   testTable.append(tableBody);
+  // creates test type filter
+  let testType = document.createElement('div');
+  testType.setAttribute('id', 'testTypes');
+  document.getElementById('sort').append(testType);
   // accesses practice_test in data object, add rows
   let practiceList = data;
   for (let test of practiceList) {
@@ -157,6 +161,8 @@ let fillTable = (data) => {
 let removeTable = () => {
   let tableBody = document.getElementById('tableContent');
   tableBody.parentNode.removeChild(tableBody);
+  let testTypes = document.getElementById('testTypes');
+  testTypes.parentNode.removeChild(testTypes);
 }
 
 // step #3: Sort by ScheduledAt
