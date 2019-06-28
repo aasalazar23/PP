@@ -209,6 +209,7 @@ let createRadio = (type) => {
     // sorts based on selected test type
 let sortByTest = (type) => {
   let location = document.getElementById('locSelect').value;
+  let testName = document.getElementById('testName');
   fetchTests(location, (data) => {
     let results = [];
     let testArray = data.practice_tests;
@@ -218,5 +219,10 @@ let sortByTest = (type) => {
       } 
     }
     fillTable(results);
+
+    // #5: adding name and number of tests available
+    testName.innerText = `${type}: ${results.length} available`;
   });
 }
+
+
