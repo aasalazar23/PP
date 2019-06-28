@@ -63,6 +63,7 @@ const locations = [
   ];
   
 // starting at the top w/ selecting a location
+    // didn't realize this was steps 7 & 8. Already completed!
 const addLocations = (locations) => {
   let locSelect = document.getElementById('locSelect');
 
