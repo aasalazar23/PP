@@ -81,7 +81,17 @@ addLocations(locations);
 const fetchTests = (abbreviation, cb) => {
   fetch(`https://dashboard.privateprep.com/feeds/practice_tests?locations=${
     abbreviation
-    }`).then(response => response.json()).then(data => cb(data))
+    }`).then(
+      response => {
+        if (response.status >= 200 && response.status < 300) {
+          return response.json()
+        }
+        // step #9 error handling
+        alert("We seem to be having trouble with our server. Try again later");
+        throw new Error(response.statusText);
+      })
+      
+      .then(data => cb(data))
 }
 
 // step #1: Fetch data from location and print it out in the console
