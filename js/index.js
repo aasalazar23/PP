@@ -92,8 +92,20 @@ locSelect.onchange = () => {
   // passes cb to console.log returned data
   fetchTests(location, (data) => {
     console.log(data);
-    fillTable(data.practice_tests);
-    createTypes(data.test_types);
+    let availTests = document.getElementById('availTests');
+    if (data.practice_tests.length > 0) {
+      availTests.innerHTML = 'Test Schedule';
+      fillTable(data.practice_tests);
+      createTypes(data.test_types);      
+    } else {
+      // #step 8: handles no options case
+      if (document.getElementById('tableContent')) {
+        removeTable();
+      }
+      console.log('no results');
+      availTests.innerHTML = "Sorry, we don't see any options for this location. Please contact our team for more details";
+    }
+
   })
 }
 
@@ -160,9 +172,13 @@ let fillTable = (data) => {
 // clears table by removing child
 let removeTable = () => {
   let tableBody = document.getElementById('tableContent');
-  tableBody.parentNode.removeChild(tableBody);
+  if (tableBody) {
+    tableBody.parentNode.removeChild(tableBody);
+  }
   let testTypes = document.getElementById('testTypes');
-  testTypes.parentNode.removeChild(testTypes);
+  if (testTypes) {
+      testTypes.parentNode.removeChild(testTypes);
+  }
 }
 
 // step #3: Sort by ScheduledAt
