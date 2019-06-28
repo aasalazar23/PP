@@ -99,6 +99,7 @@ locSelect.onchange = () => {
 // step #2: Fill Table, fills once location selected
 
 let tableBody = document.getElementById('tableContent');
+const testTable = document.getElementById('testTable');
 
   // creates table row with test data
   let createRow = (test) => {
@@ -136,8 +137,13 @@ let tableBody = document.getElementById('tableContent');
 
   // fills table with data
 let fillTable = (data) => {
-  // accesses practice_test in data object
-  //TODO: clear table after each search 
+  // clears old table
+  removeTable();
+  // creates table body
+  let tableBody = document.createElement('tbody');
+  tableBody.setAttribute('id', 'tableContent');
+  testTable.append(tableBody);
+  // accesses practice_test in data object, add rows
   let practiceList = data.practice_tests;
   for (let test of practiceList) {
     let row = createRow(test);
@@ -145,3 +151,8 @@ let fillTable = (data) => {
   }
 }
 
+// clears table by removing child
+let removeTable = () => {
+  let tableBody = document.getElementById('tableContent');
+  tableBody.parentNode.removeChild(tableBody);
+}
