@@ -40,4 +40,19 @@ th, td {
   padding: 2vh;
 }
 
+#grid-table {
+  display: grid;
+  grid-row-gap: 2vh;
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 25%);
+  text-align: center;
+}
+
+.grid-cell {
+  text-align: center;
+}
+
 /*# sourceMappingURL=main.css.map */

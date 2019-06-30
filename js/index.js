@@ -104,7 +104,7 @@ locSelect.onchange = () => {
     console.log(data);
     let availTests = document.getElementById('availTests');
     if (data.practice_tests.length > 0) {
-      availTests.innerHTML = 'Test Schedule';
+      availTestsHead.innerHTML = 'Test Schedule';
       fillTable(data.practice_tests);
       createTypes(data.test_types);      
     } else {
@@ -121,52 +121,60 @@ locSelect.onchange = () => {
 
 
 // step #2: Fill Table, fills once location selected
-
-let tableBody = document.getElementById('tableContent');
-const testTable = document.getElementById('testTable');
-
-  // creates table row with test data
-  let createRow = (test) => {
-    let testEntry = document.createElement('tr');
-    let testType = document.createElement('td');
-    let testCenter = document.createElement('td');
-    let startTime = document.createElement('td');
-    let accommodations = document.createElement('td');
-  
-    testType.append(test.test_type);
-    testCenter.append(test.test_center);
-    startTime.append(test.starts_at);
-
-    //formats accomodation data into a list
-    let accomFormat = (accom) => {
-      let accomList = document.createElement('ul');
-      for (let val of accom) {
-        let item = document.createElement('li');
-        let text = document.createTextNode(`${val.name}`);
-        item.appendChild(text);
-        accomList.append(item);
+    // creates table row in grid layout
+    let createGridRow = (test) => {
+      let grid_row = document.createElement('div');
+      grid_row.setAttribute('class', 'grid-row');
+      
+          //formats accomodation data into a list
+      let accomFormat = (accom) => {
+        let accomList = document.createElement('ul');
+        for (let val of accom) {
+          let item = document.createElement('li');
+          let text = document.createTextNode(`${val.name}`);
+          item.appendChild(text);
+          accomList.append(item);
+        }
+      return accomList;
       }
-    return accomList;
-    }
-    let accoms = accomFormat(test.accommodations);
-    accommodations.append(accoms);
-  
-    testEntry.append(testType);
-    testEntry.append(testCenter);
-    testEntry.append(startTime);
-    testEntry.append(accommodations);
+          // need to create div manually for accomodations to display list
+      let accoms = accomFormat(test.accommodations);
+      let accomodations = document.createElement('div');
+      accomodations.setAttribute('class', 'grid-cell');
+      accomodations.append(accoms);
 
-    return testEntry;
+
+      let html_block = `
+        <div class="grid-cell">${test.test_type}</div>
+        <div class="grid-cell">${test.test_center}</div>
+        <div class="grid-cell">${test.starts_at}</div>
+        `;
+      grid_row.innerHTML = html_block;
+      grid_row.append(accomodations);
+
+      return grid_row;
     }
 
   // fills table with data
 let fillTable = (data) => {
   // clears old table
   removeTable();
-  // creates table body
-  let tableBody = document.createElement('tbody');
-  tableBody.setAttribute('id', 'tableContent');
-  testTable.append(tableBody);
+
+  let table_container = document.getElementById('availTests');
+  // creates grid-table
+  let grid_table = document.createElement('div');
+  grid_table.setAttribute('id', 'grid-table');
+  table_container.append(grid_table);
+  let table_header = `
+                    <div class="grid-row" id="grid-header">
+                      <div class="grid-cell grid-header">Test Type</div>
+                      <div class="grid-cell grid-header">Test Center</div>
+                      <div class="grid-cell grid-header">Start Time</div>
+                      <div class="grid-cell grid-header">Accommodations</div>
+                    </div>
+  `;
+  grid_table.innerHTML = table_header;
+
   // creates test type filter
   let testType = document.createElement('div');
   testType.setAttribute('id', 'testTypes');
@@ -174,16 +182,16 @@ let fillTable = (data) => {
   // accesses practice_test in data object, add rows
   let practiceList = data;
   for (let test of practiceList) {
-    let row = createRow(test);
-    tableBody.append(row);
+    let grid_row = createGridRow(test);
+    grid_table.append(grid_row);
   }
 }
 
 // clears table by removing child
 let removeTable = () => {
-  let tableBody = document.getElementById('tableContent');
-  if (tableBody) {
-    tableBody.parentNode.removeChild(tableBody);
+  let grid_table = document.getElementById('grid-table');
+  if (grid_table) {
+    grid_table.parentNode.removeChild(grid_table);
   }
   let testTypes = document.getElementById('testTypes');
   if (testTypes) {
