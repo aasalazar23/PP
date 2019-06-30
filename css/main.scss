@@ -15,7 +15,9 @@ $font-stack: Palatino Linotype, Book Antiqua, Palatino, serif;
   img {
     width: 100%;
   }
-  
+  ul {
+    list-style-type: none;
+  }
   h1, h2, h3, p {
       color: black;
       font-family: $font-stack;
@@ -27,7 +29,6 @@ $font-stack: Palatino Linotype, Book Antiqua, Palatino, serif;
 
   body {
     background-color: $background-color;
-    grid-area: body;
   }
 
   main {
@@ -43,20 +44,30 @@ $font-stack: Palatino Linotype, Book Antiqua, Palatino, serif;
       text-justify: center;
   }
 
-th, td {
-    padding: 2vh;
-}
-
 #grid-table {
   display: grid;
   grid-row-gap: 2vh;
 }
+#grid-header {
+  display: none;
+}
 
 .grid-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 25%);
+  grid-template-rows: repeat(auto-fill, 25px);
+  grid-row-gap: 1vh;
   text-align: center;
 }
 .grid-cell {
   text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  #grid-header {
+    display: block;
+  }
+  .grid-row {
+    grid-template-columns: repeat(auto-fill, 25%);
+    grid-template-rows: auto;
+  }
 }
